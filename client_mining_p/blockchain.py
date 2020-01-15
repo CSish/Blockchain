@@ -10,6 +10,7 @@ from flask import Flask, jsonify, request
 
 class Blockchain(object):
     def __init__(self):
+        
         self.chain = []
         self.current_transactions = []
 
@@ -89,7 +90,7 @@ class Blockchain(object):
     def last_block(self):
         return self.chain[-1]
 
-    def proof_of_work(self, block):
+    def proof_of_work(self, block):  # return proof
         """
         Simple Proof of Work Algorithm
         Stringify the block and look for a proof.
@@ -102,8 +103,7 @@ class Blockchain(object):
         proof = 0 
         while self.valid_proof(block_string, proof) is False:
             proof += 1
-        return proof
-        # return proof
+        return proof  # return proof
 
     @staticmethod
     def valid_proof(block_string, proof):
@@ -145,7 +145,8 @@ def mine():
 
     response = {
         # TODO: Send a JSON response with the new block
-        "new_block": block
+        "new_block": block,
+        "message": "New Block Forged"
     }
 
     return jsonify(response), 200
